@@ -11,6 +11,8 @@ import AVFoundation
 
 class CameraController: UIViewController {
 
+    var captureSession: AVCaptureSession?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -18,7 +20,10 @@ class CameraController: UIViewController {
     }
     
     func prepare(completionHandler: @escaping (Error?) -> Void) {
-        func createCaptureSession() { }
+        func createCaptureSession() {
+            self.captureSession = AVCaptureSession()
+        }
+        
         func configureCaptureDevices() throws { }
         func configureDeviceInputs() throws { }
         func configurePhotoOutput() throws { }
