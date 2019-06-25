@@ -26,7 +26,25 @@ class CameraController: UIViewController {
             self.captureSession = AVCaptureSession()
         }
         
-        func configureCaptureDevices() throws { }
+        func configureCaptureDevices() throws {
+            let session = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: AVMediaType.video, position: .unspecified)
+            let cameras = session.devices.compactMap{$0}
+            if cameras.isEmpty { throw CameraControllerError.noCamerasAvailable }
+            
+            for camera in cameras {
+                if camera.position == .front {
+                    self.frontCamera = camera
+                }
+                
+                if camera.position == .back {
+                    self.rearCamera = camera
+                    
+                    try camera.lockForConfiguration()
+                    camera.focusMode = .continuousAutoFocus
+                    camera.unlockForConfiguration()
+                }
+            }
+        }
         func configureDeviceInputs() throws { }
         func configurePhotoOutput() throws { }
         
