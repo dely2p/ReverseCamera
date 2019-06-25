@@ -12,6 +12,8 @@ import AVFoundation
 class CameraController: UIViewController {
 
     var captureSession: AVCaptureSession?
+    var frontCamera: AVCaptureDevice?
+    var rearCamera: AVCaptureDevice?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,4 +52,12 @@ class CameraController: UIViewController {
         }
     }
 
+    enum CameraControllerError: Swift.Error {
+        case captureSessionAlreadyRunning
+        case captureSessionIsMissing
+        case inputsAreInvalid
+        case invalidOperation
+        case noCamerasAvailable
+        case unknown
+    }
 }
