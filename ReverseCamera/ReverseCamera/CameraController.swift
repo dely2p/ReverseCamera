@@ -23,6 +23,9 @@ class CameraController: UIViewController {
     
     var previewLayer: AVCaptureVideoPreviewLayer?
     
+    var photoCaptureCompletionBlock: ((UIImage?, Error?) -> Void)?
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -112,6 +115,15 @@ class CameraController: UIViewController {
         view.layer.insertSublayer(self.previewLayer!, at: 0)
         self.previewLayer?.frame = view.frame
     }
+    
+    func captureImage(completion: @escaping (UIImage?, Error?) -> Void) {
+        guard let captureSession = captureSession, captureSession.isRunning else { completion(nil, CameraControllerError.captureSessionIsMissing); return }
+        
+        let settings = AVCapturePhotoSettings()
+        
+        self.photoOutput?.capturePhoto(with: settings, delegate: self)
+        self.photoCaptureCompletionBlock = completion
+    }
 
     enum CameraControllerError: Swift.Error {
         case captureSessionAlreadyRunning
@@ -125,5 +137,19 @@ class CameraController: UIViewController {
     public enum CameraPosition {
         case front
         case rear
+    }
+}
+
+extension CameraController: AVCapturePhotoCaptureDelegate {
+    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
+        if let error = error { self.photoCaptureCompletionBlock?(nil, error) }
+        else if let imageData = photo.fileDataRepresentation() {
+            if let image = UIImage(data: imageData) {
+                self.photoCaptureCompletionBlock?(image, nil)
+            }
+        }else {
+            self.photoCaptureCompletionBlock?(nil, CameraControllerError.unknown)
+        }
+        
     }
 }

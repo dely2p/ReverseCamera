@@ -25,6 +25,9 @@
                                     <constraint firstAttribute="height" constant="60" id="9mI-bu-kkB"/>
                                     <constraint firstAttribute="width" constant="60" id="Nyp-KV-D4g"/>
                                 </constraints>
+                                <connections>
+                                    <action selector="captureImage:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qQA-Wz-zaA"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

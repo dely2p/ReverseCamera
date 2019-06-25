@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Photos
 
 class ViewController: UIViewController {
 
@@ -36,6 +37,19 @@ class ViewController: UIViewController {
         captureButton.layer.borderWidth = 2
         
         captureButton.layer.cornerRadius = min(captureButton.frame.width, captureButton.frame.height) / 2
+    }
+    
+    @IBAction func captureImage(_ sender: UIButton) {
+        cameraController.captureImage {(image, error) in
+            guard let image = image else {
+                print(error ?? "Image capture error")
+                return
+            }
+            
+            try? PHPhotoLibrary.shared().performChangesAndWait {
+                PHAssetChangeRequest.creationRequestForAsset(from: image)
+            }
+        }
     }
 }
 
