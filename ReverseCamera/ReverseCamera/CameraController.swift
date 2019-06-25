@@ -21,6 +21,8 @@ class CameraController: UIViewController {
     
     var photoOutput: AVCapturePhotoOutput?
     
+    var previewLayer: AVCaptureVideoPreviewLayer?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -98,6 +100,17 @@ class CameraController: UIViewController {
                 completionHandler(nil)
             }
         }
+    }
+    
+    func displayPreview(on view: UIView) throws {
+        guard let captureSession = self.captureSession, captureSession.isRunning else { throw CameraControllerError.captureSessionIsMissing }
+        
+        self.previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+        self.previewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
+        self.previewLayer?.connection?.videoOrientation = .portrait
+        
+        view.layer.insertSublayer(self.previewLayer!, at: 0)
+        self.previewLayer?.frame = view.frame
     }
 
     enum CameraControllerError: Swift.Error {
