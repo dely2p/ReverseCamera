@@ -15,6 +15,10 @@ class CameraController: UIViewController {
     var frontCamera: AVCaptureDevice?
     var rearCamera: AVCaptureDevice?
     
+    var currentCameraPosition: CameraPosition?
+    var frontCameraInput: AVCaptureDeviceInput?
+    var rearCameraInput: AVCaptureDeviceInput?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -77,5 +81,10 @@ class CameraController: UIViewController {
         case invalidOperation
         case noCamerasAvailable
         case unknown
+    }
+    
+    public enum CameraPosition {
+        case front
+        case rear
     }
 }
