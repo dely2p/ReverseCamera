@@ -19,6 +19,8 @@ class CameraController: UIViewController {
     var frontCameraInput: AVCaptureDeviceInput?
     var rearCameraInput: AVCaptureDeviceInput?
     
+    var photoOutput: AVCapturePhotoOutput?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -49,6 +51,7 @@ class CameraController: UIViewController {
                 }
             }
         }
+        
         func configureDeviceInputs() throws {
             guard let captureSession = self.captureSession else { throw CameraControllerError.captureSessionIsMissing }
            
@@ -63,7 +66,17 @@ class CameraController: UIViewController {
                 self.currentCameraPosition = .front
             }else { throw CameraControllerError.noCamerasAvailable }
         }
-        func configurePhotoOutput() throws { }
+        
+        func configurePhotoOutput() throws {
+            guard let captureSession = self.captureSession else { throw CameraControllerError.captureSessionIsMissing }
+            
+            self.photoOutput = AVCapturePhotoOutput()
+            self.photoOutput!.setPreparedPhotoSettingsArray([AVCapturePhotoSettings(format: [AVVideoCodecKey : AVVideoCodecType.jpeg])], completionHandler: nil)
+            
+            if captureSession.canAddOutput(self.photoOutput!) { captureSession.addOutput(self.photoOutput!) }
+            
+            captureSession.startRunning()
+        }
         
         DispatchQueue(label: "prepare").async {
             do {
