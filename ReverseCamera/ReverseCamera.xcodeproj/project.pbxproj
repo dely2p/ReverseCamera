@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A30243A722C27B7C007923B5 /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30243A622C27B7C007923B5 /* CameraController.swift */; };
 		A3E608BB22BA2C14005EF859 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E608BA22BA2C14005EF859 /* AppDelegate.swift */; };
 		A3E608BD22BA2C14005EF859 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E608BC22BA2C14005EF859 /* ViewController.swift */; };
 		A3E608C022BA2C14005EF859 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A3E608BE22BA2C14005EF859 /* Main.storyboard */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A30243A622C27B7C007923B5 /* CameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
 		A3E608B722BA2C14005EF859 /* ReverseCamera.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReverseCamera.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3E608BA22BA2C14005EF859 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A3E608BC22BA2C14005EF859 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -60,6 +62,7 @@
 				A3E608C122BA2C15005EF859 /* Assets.xcassets */,
 				A3E608C322BA2C15005EF859 /* LaunchScreen.storyboard */,
 				A3E608C622BA2C15005EF859 /* Info.plist */,
+				A30243A622C27B7C007923B5 /* CameraController.swift */,
 			);
 			path = ReverseCamera;
 			sourceTree = "<group>";
@@ -135,6 +138,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A30243A722C27B7C007923B5 /* CameraController.swift in Sources */,
 				A3E608BD22BA2C14005EF859 /* ViewController.swift in Sources */,
 				A3E608BB22BA2C14005EF859 /* AppDelegate.swift in Sources */,
 			);
