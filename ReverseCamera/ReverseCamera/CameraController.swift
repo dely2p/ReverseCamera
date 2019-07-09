@@ -109,6 +109,8 @@ class CameraController: UIViewController {
         self.previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         self.previewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
         self.previewLayer?.connection?.videoOrientation = .portrait
+        self.previewLayer?.connection?.automaticallyAdjustsVideoMirroring = false
+        self.previewLayer?.connection?.isVideoMirrored = false
         
         view.layer.insertSublayer(self.previewLayer!, at: 0)
         self.previewLayer?.frame = view.frame
