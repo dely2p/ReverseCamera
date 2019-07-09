@@ -29,21 +29,38 @@
                                     <action selector="captureImage:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qQA-Wz-zaA"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cpX-zt-rKM">
+                                <rect key="frame" x="295" y="50" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="OTH-T5-f1S"/>
+                                    <constraint firstAttribute="height" constant="50" id="kVD-o4-9eA"/>
+                                </constraints>
+                                <state key="normal" image="Rear Camera Icon"/>
+                                <connections>
+                                    <action selector="switchCameras:" destination="BYZ-38-t0r" eventType="touchUpInside" id="m9O-o1-sr0"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="cpX-zt-rKM" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="30" id="W1J-j4-h56"/>
                             <constraint firstItem="Bdc-q6-0if" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="gNr-bu-gm5"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Bdc-q6-0if" secondAttribute="bottom" constant="30" id="pMA-jd-Ial"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="cpX-zt-rKM" secondAttribute="trailing" constant="30" id="u4L-oY-prw"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="captureButton" destination="Bdc-q6-0if" id="oik-zU-rwu"/>
                         <outlet property="capturePreviewView" destination="8bC-Xf-vdC" id="xl8-CX-BQA"/>
+                        <outlet property="toggleCameraButton" destination="cpX-zt-rKM" id="lFU-R5-YCt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
         </scene>
     </scenes>
+    <resources>
+        <image name="Rear Camera Icon" width="24" height="24"/>
+    </resources>
 </document>

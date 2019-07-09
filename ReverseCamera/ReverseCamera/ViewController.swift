@@ -13,6 +13,7 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var capturePreviewView: UIView!
     @IBOutlet weak var captureButton: UIButton!
+    @IBOutlet weak var toggleCameraButton: UIButton!
     let cameraController = CameraController()
     
     override func viewDidLoad() {
@@ -49,6 +50,27 @@ class ViewController: UIViewController {
             try? PHPhotoLibrary.shared().performChangesAndWait {
                 PHAssetChangeRequest.creationRequestForAsset(from: image)
             }
+        }
+    }
+    
+    @IBAction func switchCameras(_ sender: UIButton) {
+        do {
+            try cameraController.switchCameras()
+        }
+            
+        catch {
+            print(error)
+        }
+        
+        switch cameraController.currentCameraPosition {
+        case .some(.front):
+            toggleCameraButton.setImage(#imageLiteral(resourceName: "Front Camera Icon"), for: .normal)
+            
+        case .some(.rear):
+            toggleCameraButton.setImage(#imageLiteral(resourceName: "Rear Camera Icon"), for: .normal)
+            
+        case .none:
+            return
         }
     }
 }

@@ -122,6 +122,60 @@ class CameraController: UIViewController {
         self.photoOutput?.capturePhoto(with: settings, delegate: self)
         self.photoCaptureCompletionBlock = completion
     }
+    
+    func switchCameras() throws {
+        guard let currentCameraPosition = currentCameraPosition, let captureSession = self.captureSession, captureSession.isRunning else { throw CameraControllerError.captureSessionIsMissing }
+        
+        captureSession.beginConfiguration()
+        
+        func switchToFrontCamera() throws {
+            
+            guard let rearCameraInput = self.rearCameraInput, captureSession.inputs.contains(rearCameraInput),
+                let frontCamera = self.frontCamera else { throw CameraControllerError.invalidOperation }
+            
+            self.frontCameraInput = try AVCaptureDeviceInput(device: frontCamera)
+            
+            captureSession.removeInput(rearCameraInput)
+            
+            if captureSession.canAddInput(self.frontCameraInput!) {
+                captureSession.addInput(self.frontCameraInput!)
+                
+                self.currentCameraPosition = .front
+            }
+                
+            else {
+                throw CameraControllerError.invalidOperation
+            }
+        }
+        
+        func switchToRearCamera() throws {
+            
+            guard let frontCameraInput = self.frontCameraInput, captureSession.inputs.contains(frontCameraInput),
+                let rearCamera = self.rearCamera else { throw CameraControllerError.invalidOperation }
+            
+            self.rearCameraInput = try AVCaptureDeviceInput(device: rearCamera)
+            
+            captureSession.removeInput(frontCameraInput)
+            
+            if captureSession.canAddInput(self.rearCameraInput!) {
+                captureSession.addInput(self.rearCameraInput!)
+                
+                self.currentCameraPosition = .rear
+            }
+                
+            else { throw CameraControllerError.invalidOperation }
+        }
+        
+        switch currentCameraPosition {
+        case .front:
+            try switchToRearCamera()
+            
+        case .rear:
+            try switchToFrontCamera()
+        }
+        
+        captureSession.commitConfiguration()
+    }
 }
 
 extension CameraController {
